@@ -1,7 +1,10 @@
 # memoize
 
-This example is to demonstrate a basic EOSIO smart contract, including
+Basic EOSIO smart contract, including the use of multi-index table to store persistance data.
 
-- Define contract actions
-- Define a table
-- Perform read/write/remove operations on the table
+Contract actions:
+- addplate -> create a plate_number (aka vehicle) in the user record.
+- delplate -> remove plate_number from user record
+- updvehicle -> update basic vehicle information
+- addservice -> update service or repair information
+- delservice -> remove service or repair information
