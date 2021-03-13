@@ -14,6 +14,7 @@ class Login extends Component {
         username: '',
         key: '',
       },
+      error: '',
     }
 
     //Bind functions
@@ -30,6 +31,7 @@ class Login extends Component {
         ...form,
         [name]: value,
       },
+      error: '',
     });
   }
 
@@ -41,24 +43,24 @@ class Login extends Component {
   }
 
   render() {
-    const { form } = this.state;
-
+    const { form, error } = this.state;
+ 
     return (
       <div className="Login">
-        <div class="sidenav">
-          <div class="login-main-text">
+        <div className="sidenav">
+          <div className="login-main-text">
             <h2>Memoize<br /> Vehicle Info on Blockchain</h2>
             <p>Record key info, service/repair history, fuel up history and more...</p>
           </div>
         </div>
-        <div class="main">
-          <div class="col-md-6 col-sm-12">
-            <div class="login-form">
+        <div className="main">
+          <div className="col-md-6 col-sm-12">
+            <div className="login-form">
               <form>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Account Name</label>
                   <input
-                    class="form-control"
+                    className="form-control"
                     type="text"
                     name="username"
                     placeholder="All small letters, a-z, 1-5 or dot, max 12 characters"
@@ -66,18 +68,21 @@ class Login extends Component {
                     required
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Private key</label>
                   <input
-                    class="form-control"
+                    className="form-control"
                     type="password"
                     name="key"
                     pattern="^.{51,}$"
                     required
                   />
                 </div>
-                <button type="submit" class="btn btn-black">Login</button>
+                <button type="submit" className="btn btn-black">Login</button>
               </form>
+              <div>
+                {error && <span className="text-danger">{error}</span>}
+              </div>
             </div>
           </div>
         </div>
