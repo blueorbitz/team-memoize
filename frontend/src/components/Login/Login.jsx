@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // Components
+
+// Services and redux action
+import { UserAction } from '../../actions';
+import { ApiService } from '../../services';
 
 // Bootstrap login template = https://bootsnipp.com/snippets/7nk08
 
@@ -11,15 +16,24 @@ class Login extends Component {
     // State for form data and error message
     this.state = {
       form: {
-        username: '',
+        from: '',
         key: '',
       },
       error: '',
+      isSigningIn: false,
     }
 
     //Bind functions
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.isComponentMounted = true;
+  }
+
+  componentWillUnmount() {
+    this.isComponentMounted = false;
   }
 
   handleChange(event) {
@@ -39,11 +53,32 @@ class Login extends Component {
     //Suppress the default submit behavior
     event.preventDefault();
 
-    //TODO: submit credentials to the blockchain
+    // Extract `form` state
+    const { form } = this.state;
+    // Extract `setUser` of `UserAction` and `user.name` of UserReducer from redux
+    const { setUser } = this.props;
+    // Set loading spinner to the button
+    this.setState({ isSigningIn: true });
+
+    // Send a login transaction to the blockchain by calling the ApiService,
+    // If it successes, save the username to redux store
+    // Otherwise, save the error state for displaying the message
+    return ApiService.login(form)
+      .then((data) => {
+        setUser({ from: form.from });
+      })
+      .catch(err => {
+        this.setState({ error: err.toString() });
+      })
+      .finally(() => {
+        if (this.isComponentMounted) {
+          this.setState({ isSigningIn: false });
+        }
+      });
   }
 
   render() {
-    const { form, error } = this.state;
+    const { form, error, isSigningIn } = this.state;
  
     return (
       <div className="Login">
@@ -56,14 +91,16 @@ class Login extends Component {
         <div className="main">
           <div className="col-md-6 col-sm-12">
             <div className="login-form">
-              <form>
+              <form name="from" onSubmit={ this.handleSubmit }>
                 <div className="form-group">
                   <label>Account Name</label>
                   <input
                     className="form-control"
                     type="text"
-                    name="username"
+                    name="from"
+                    value={ form.from }
                     placeholder="All small letters, a-z, 1-5 or dot, max 12 characters"
+                    onChange={ this.handleChange }
                     pattern="[\.a-z1-5]{2,12}"
                     required
                   />
@@ -74,6 +111,8 @@ class Login extends Component {
                     className="form-control"
                     type="password"
                     name="key"
+                    value={ form.key }
+                    onChange={ this.handleChange }
                     pattern="^.{51,}$"
                     required
                   />
@@ -91,4 +130,13 @@ class Login extends Component {
   }
 }
 
-export default Login;
+// Map all state to component props (for redux to connect)
+const mapStateToProps = state => state;
+
+// Map the following action to props
+const mapDispatchToProps = {
+  setUser: UserAction.setUser,
+};
+
+// Export a redux connected component
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -94,7 +94,7 @@ ACTION memoize::delplate(name from, string plate_number) {
 
 }
 
-ACTION memoize::updvechicle(name from, uint64_t id, string chasis_sn, time_point manufacture_date, time_point ownership_date) {
+ACTION memoize::updvehicle(name from, uint64_t id, string chasis_sn, time_point manufacture_date, time_point ownership_date) {
   require_auth(from);
 
   auto itr = _vehicle.find(id);

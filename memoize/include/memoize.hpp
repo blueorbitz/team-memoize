@@ -19,7 +19,7 @@ CONTRACT memoize : public contract {
 
     ACTION addplate(name from, string plate_number);
     ACTION delplate(name from, string plate_number);
-    ACTION updvechicle(name from, uint64_t id, string chasis_sn, time_point manufacture_date, time_point ownership_date);
+    ACTION updvehicle(name from, uint64_t id, string chasis_sn, time_point manufacture_date, time_point ownership_date);
 
     ACTION addservice(name from, uint64_t vehicle_id, time_point service_date, string memo);
     ACTION delservice(name from, uint64_t id);
