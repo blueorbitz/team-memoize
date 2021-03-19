@@ -2,6 +2,9 @@
  * List all Action types used in the application
  */
 export default {
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
+
   SET_USER: 'SET_USER',
 
   ADD_PLATE: 'ADD_PLATE',

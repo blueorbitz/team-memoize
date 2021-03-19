@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 //Components
 import { Login, Home } from '../../components';
+import AuthRoute from './AuthRoute';
 // Services and redux action
 import { UserAction } from '../../actions';
 import { ApiService } from '../../services';
@@ -45,18 +46,20 @@ class App extends Component {
 
   render() {
     const { loading } = this.state;
-    const { user: { from } } = this.props;
-    let isLogin = from !== '';
 
     return (
-      // <Switch>
-      //   <Route exact path="/" component={ isLogin ? Home : <Redirect to={{ pathname: '/login' }} /> } />
-      //   <Route path="/login" component={ isLogin ? Login : <Redirect to={{ pathname: '/' }} /> } />
-      // </Switch>
-      <div className={`App ${isLogin ? 'app-main' : 'app-login'} ${loading ? 'app-loading' : ''}`}>
-        { isLogin && <Home />}
-        { !isLogin && <Login />}
-      </div>
+      <Switch>
+        <AuthRoute exact path="/login">
+          <div className={`App app-login ${loading ? 'app-loading' : ''}`}>
+            <Login />
+          </div>
+        </AuthRoute>
+        <AuthRoute exact path="/">
+          <div className={`App app-main ${loading ? 'app-loading' : ''}`}>
+            <Home />
+          </div>
+        </AuthRoute>
+      </Switch>
     );
   }
 

@@ -1,8 +1,13 @@
 import { ActionTypes } from '../const';
 
 class UserAction {
+  static logout() {
+    return {
+      type: ActionTypes.LOGOUT,
+    };
+  }
 
-  static setUser({ from }) {
+  static setUser({ from }) { // AKA login
     return {
       type: ActionTypes.SET_USER,
       from,

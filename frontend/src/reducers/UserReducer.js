@@ -11,6 +11,9 @@ export default function (state = initialState, action) {
         from: action.from || initialState.from,
       });
     }
+    case ActionTypes.LOGOUT: {
+      return Object.assign({});
+    }
     default:
       return state;
   }
