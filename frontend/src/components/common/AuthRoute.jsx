@@ -6,14 +6,14 @@ const AuthRoute = props => {
   const { user: { from }, path } = props;
   let isLogin = from !== '';
 
-  if (path === '/' && !isLogin) {
-    return <Redirect to="/login" />;
-  }
   if (path === '/login' && isLogin) {
     return <Redirect to="/" />;
   }
-
-  return <Route {...props} />;
+  else if (path !== '/login' && !isLogin) {
+    return <Redirect to="/login" />;
+  }
+  else
+    return <Route {...props} />;
 };
 
 const mapStateToProps = state => state;

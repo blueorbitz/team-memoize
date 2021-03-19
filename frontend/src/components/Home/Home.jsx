@@ -1,7 +1,9 @@
 // React core
 import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 // Home subcomponents
+import AppNavbar from '../common/AppNavbar';
 // Services and redux action
 import { UserAction } from '../../actions';
 import { ApiService } from '../../services';
@@ -22,21 +24,12 @@ class Home extends Component {
 
     //Bind functions
     this.loadVehicles = this.loadVehicles.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleDetail = this.handleDetail.bind(this);
 
     //Init
     this.loadVehicles();
-  }
-
-  handleLogout(event) {
-    const { setUser } = this.props;
-
-    ApiService.logout();
-    setUser({ from: '' });
   }
 
   loadVehicles() {
@@ -96,24 +89,12 @@ class Home extends Component {
       });
   }
 
-  handleDetail(event) {
-    console.log('detail');
-  }
-
   render() {
     const { form, error, vehicles } = this.state;
 
     return (
       <React.Fragment>
-        <div className="navbar">
-          <div className="container d-flex justify-content-between">
-            <div className="navbar-brand">Memoize</div>
-            <a href="#" className="navbar-text" onClick={ this.handleLogout }>
-              Logout
-            </a>
-          </div>
-        </div>
-
+        <AppNavbar />
         <section className="jumbotron text-center">
           <div className="container">
             <h2 className="jumbotron-heading">Get Started</h2>
@@ -140,8 +121,12 @@ class Home extends Component {
             <div className="row">
               {
                 vehicles.map(vehicle => (
-                  <div className="card" key={ vehicle.id } onClick={ this.handleDetail }>
-                    <h1>{ vehicle.plate_number.toUpperCase() }</h1>
+                  <div className="card" key={ vehicle.id }>
+                    <h1>
+                      <Link to={`/detail/${vehicle.plate_number}`}>
+                        { vehicle.plate_number.toUpperCase() }
+                      </Link>
+                    </h1>
                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                     <button className="btn btn-black" onClick={(e) => this.handleDelete(e, vehicle.plate_number) }>Delete</button>
                   </div>

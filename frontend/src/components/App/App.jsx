@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 //Components
-import { Login, Home } from '../../components';
-import AuthRoute from './AuthRoute';
+import { Login, Home, Detail } from '../../components';
+import AuthRoute from '../common/AuthRoute';
 // Services and redux action
 import { UserAction } from '../../actions';
 import { ApiService } from '../../services';
@@ -54,11 +54,8 @@ class App extends Component {
             <Login />
           </div>
         </AuthRoute>
-        <AuthRoute exact path="/">
-          <div className={`App app-main ${loading ? 'app-loading' : ''}`}>
-            <Home />
-          </div>
-        </AuthRoute>
+        <AuthRoute exact path="/" component={Home} />
+        <AuthRoute path="/detail/:plate_number" component={Detail} />
       </Switch>
     );
   }
