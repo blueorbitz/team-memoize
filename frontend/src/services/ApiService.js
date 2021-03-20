@@ -131,8 +131,9 @@ class ApiService {
         scope: process.env.REACT_APP_EOS_CONTRACT_NAME, // Account that owns the data
         table: 'service',           // Table name
         index_position: 2,          // Table secondary index
+        key_type: 'i64',            // Key required for non-primary index
         lower_bound: vehicle_id,    // Table secondary key value
-        limit: 9999,              // Here we limit to 1 to get only row
+        limit: 9999,                // Here we limit to 1 to get only row
       });
       return result.rows;
     } catch (err) {

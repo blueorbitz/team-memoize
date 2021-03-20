@@ -147,4 +147,4 @@ ACTION memoize::delservice(name from, uint64_t id) {
   });
 }
 
-EOSIO_DISPATCH(memoize, (hi)(clear)(addplate)(delplate)(updvechicle)(addservice)(delservice))
+EOSIO_DISPATCH(memoize, (hi)(clear)(addplate)(delplate)(updvehicle)(addservice)(delservice))

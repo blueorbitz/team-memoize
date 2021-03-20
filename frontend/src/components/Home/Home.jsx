@@ -127,7 +127,13 @@ class Home extends Component {
                         { vehicle.plate_number.toUpperCase() }
                       </Link>
                     </h1>
-                    <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p className="card-text">
+                      chasis: { vehicle.chasis_sn }
+                      <br />
+                      manufacture: { vehicle.manufacture_date.substr(0, 10) }
+                      <br />
+                      ownership: { vehicle.ownership_date.substr(0, 10) }
+                    </p>
                     <button className="btn btn-black" onClick={(e) => this.handleDelete(e, vehicle.plate_number) }>Delete</button>
                   </div>
                 ))
