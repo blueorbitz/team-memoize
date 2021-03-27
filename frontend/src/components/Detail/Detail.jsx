@@ -250,11 +250,14 @@ class Detail extends Component {
                     >
                       Delete
                     </button>
-                    <h6 className="mr-3">{ service.service_date.substr(0, 10) }</h6>
-                    <pre className="media-body">
-                      { service.id }
-                      { service.memo }
-                    </pre>
+                    <dl className="row media-body">
+                      <dt className="col-sm-2">Service ID</dt>
+                      <dd className="col-sm-10">{ service.id }</dd>
+                      <dt className="col-sm-2">Service Date</dt>
+                      <dd className="col-sm-10">{ service.service_date.substr(0, 10) }</dd>
+                      <dt className="col-sm-2">Memo</dt>
+                      <dd className="col-sm-10"><pre>{ service.memo }</pre></dd>
+                    </dl>
                   </li>
                 )
               })

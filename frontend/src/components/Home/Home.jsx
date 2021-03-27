@@ -99,14 +99,14 @@ class Home extends Component {
           <div className="container">
             <h2 className="jumbotron-heading">Get Started</h2>
             <p className="lead text-muted">Creating some record of vehicle you want to be put into EOS blockchain.</p>
-            <form className="form-inline" onSubmit={ this.handleSubmit }>
+            <form className="form-inline" onSubmit={this.handleSubmit}>
               <input
                 className="form-control"
                 type="text"
                 name="plate_number"
-                value={ form.plate_number }
+                value={form.plate_number}
                 placeholder="Plate Number"
-                onChange={ this.handleChange }
+                onChange={this.handleChange}
               />
               <button type="submit" className="btn btn-black">Add New Vehicle</button>
             </form>
@@ -121,20 +121,33 @@ class Home extends Component {
             <div className="row">
               {
                 vehicles.map(vehicle => (
-                  <div className="card" key={ vehicle.id }>
+                  <div className="card" key={vehicle.id}>
                     <h1>
                       <Link to={`/detail/${vehicle.plate_number}`}>
-                        { vehicle.plate_number.toUpperCase() }
+                        {vehicle.plate_number.toUpperCase()}
                       </Link>
                     </h1>
-                    <p className="card-text">
-                      chasis: { vehicle.chasis_sn }
-                      <br />
-                      manufacture: { vehicle.manufacture_date.substr(0, 10) }
-                      <br />
-                      ownership: { vehicle.ownership_date.substr(0, 10) }
-                    </p>
-                    <button className="btn btn-black" onClick={(e) => this.handleDelete(e, vehicle.plate_number) }>Delete</button>
+                    <dl className="card-text">
+                      <dt>Chasis Number</dt>
+                      <dd>{vehicle.chasis_sn || '{not set}'}</dd>
+                      <dt>Engine Number</dt>
+                      <dd>{vehicle.chasis_sn || '{not set}'}</dd>
+                      <dt>Year Manufacture/Ownership</dt>
+                      <dd>
+                        {
+                          vehicle.manufacture_date.substr(0, 4) !== '1970'
+                          ? vehicle.manufacture_date.substr(0, 4)
+                          : '{not set}'
+                        }
+                        { ' / ' }
+                        {
+                          vehicle.ownership_date.substr(0, 4) !== '1970'
+                          ? vehicle.ownership_date.substr(0, 4)
+                          : '{not set}'
+                        }
+                      </dd>
+                    </dl>
+                    <button className="btn btn-black" onClick={(e) => this.handleDelete(e, vehicle.plate_number)}>Delete</button>
                   </div>
                 ))
               }
