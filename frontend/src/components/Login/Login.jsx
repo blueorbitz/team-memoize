@@ -119,6 +119,7 @@ class Login extends Component {
                 </div>
                 <button type="submit" className="btn btn-black">Login</button>
               </form>
+              <p>Register an account <a href="https://testnet.eos.io">here</a>.</p>
               <div>
                 {error && <span className="text-danger">{error}</span>}
               </div>
